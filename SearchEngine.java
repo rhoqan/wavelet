@@ -8,7 +8,6 @@ class Handler implements URLHandler {
     // various requests.
     int num = 0;
     List<String> strsList = new ArrayList<>();
-    List<String> strsList2 = new ArrayList<>();
     String str = "";
 
 
