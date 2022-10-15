@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ class Handler implements URLHandler {
     String str = "";
 
 
-    public String handleRequest(URI url) {
+    public String handleRequest(URI url) throws IOException {
         if (url.getPath().equals("/")) {
             return String.format("Number: %d", num);
         } else if (url.getPath().equals("/increment")) {
@@ -32,6 +33,20 @@ class Handler implements URLHandler {
                 for (String s: strsList) {
                     if (s.contains(parameters[1])) {
                         str += s + " ";
+                    }
+                }
+                return str;
+            }
+            if (url.getPath().contains("/filesearch")) {
+                List<File> files = FileGetter.getFiles(new File("TestFiles/"));
+                str = "";
+                String[] parameters = url.getQuery().split("=");
+                for (File f: files) {
+                    String name = f.getName();
+                    if (name.contains(parameters[1])) {
+                        if (!str.contains(name)) {
+                            str += name + " ";
+                        }
                     }
                 }
                 return str;
